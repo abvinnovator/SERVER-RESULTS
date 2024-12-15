@@ -5,8 +5,12 @@ const ResultScraper = require('./scrapper');
 const app = express();
 const PORT = 5000;
 
+const allowedOrigin = "https://srkrresults.netlify.app";
+
 app.use(cors({
-  origin: 'https://srkrresults.netlify.app/', // Replace with your actual frontend domain
+  origin: allowedOrigin, // Allow this specific origin
+  methods: ["GET", "POST"], // Allow only the necessary HTTP methods
+  credentials: true, // If cookies or credentials are needed
 }));
 app.use(express.json());
 
