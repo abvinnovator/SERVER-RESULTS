@@ -5,7 +5,9 @@ const ResultScraper = require('./scrapper');
 const app = express();
 const PORT = 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://srkrresults.netlify.app/', // Replace with your actual frontend domain
+}));
 app.use(express.json());
 
 app.post('/getResults', async (req, res) => {
