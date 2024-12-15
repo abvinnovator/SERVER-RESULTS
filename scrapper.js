@@ -95,15 +95,11 @@ class ResultScraper {
 
     // Original scraping logic from previous implementation
     const browser = await puppeteer.launch({ 
+      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+      defaultViewport: chrome.defaultViewport,
+      executablePath: await chrome.executablePath,
       headless: true,
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '',
-        args: [
-          '--no-sandbox', 
-          '--disable-setuid-sandbox', 
-          '--disable-dev-shm-usage',
-          '--disable-gpu',
-          '--remote-debugging-port=9222'
-        ]
+      ignoreHTTPSErrors: true,
     });
     const page = await browser.newPage();
 
