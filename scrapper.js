@@ -1,3 +1,4 @@
+
 const puppeteer = require("puppeteer");
 const crypto = require('crypto');
 const fs = require('fs');
@@ -95,11 +96,8 @@ class ResultScraper {
 
     // Original scraping logic from previous implementation
     const browser = await puppeteer.launch({ 
-      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-      defaultViewport: chrome.defaultViewport,
-      executablePath: await chrome.executablePath,
       headless: true,
-      ignoreHTTPSErrors: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
     });
     const page = await browser.newPage();
 

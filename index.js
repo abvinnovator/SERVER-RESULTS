@@ -1,3 +1,4 @@
+
 const express = require("express");
 const cors = require("cors");
 const ResultScraper = require('./scrapper'); 
@@ -5,13 +6,7 @@ const ResultScraper = require('./scrapper');
 const app = express();
 const PORT = 5000;
 
-const allowedOrigin = "https://srkrresults.netlify.app";
-
-app.use(cors({
-  origin: allowedOrigin, // Allow this specific origin
-  methods: ["GET", "POST"], // Allow only the necessary HTTP methods
-  credentials: true, // If cookies or credentials are needed
-}));
+app.use(cors());
 app.use(express.json());
 
 app.post('/getResults', async (req, res) => {

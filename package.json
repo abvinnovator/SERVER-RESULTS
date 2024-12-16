@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install-chrome": "npx puppeteer browsers install chrome",
-    "prebuild": "npm run install-chrome",
-    "start": "node index.js"
+    "start": "nodemon index.js",
+    "vercel-build": "echo 'Build completed'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sparticuz/chromium": "^131.0.1",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "nodemon": "^3.1.9",
