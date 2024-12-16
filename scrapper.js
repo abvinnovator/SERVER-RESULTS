@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
-
+require("dotenv").config();
 class ResultScraper {
   constructor() {
     // Create a persistent cache directory
@@ -95,9 +95,17 @@ class ResultScraper {
     }
 
     // Original scraping logic from previous implementation
-    const browser = await puppeteer.launch({ 
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    const browser = await puppeteer.launch({
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+      ],
+      executablePath:
+        process.env.NODE_ENV === "production"
+          ? process.env.PUPPETEER_EXECUTABLE_PATH
+          : puppeteer.executablePath(),
     });
     const page = await browser.newPage();
 
