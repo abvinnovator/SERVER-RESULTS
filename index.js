@@ -7,7 +7,11 @@ const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
-
+app.get('/', (req, res) => {
+    res.send('Hello server running!');
+  });
+ 
+  
 app.post('/getResults', async (req, res) => {
     const { regdNo, semester } = req.body;
     try {
