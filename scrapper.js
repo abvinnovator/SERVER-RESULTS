@@ -83,24 +83,32 @@ class ResultScraper {
 
   // Main scraping method with enhanced features
   async scrapeStudentHistory(regdNo, semester) {
-    // Generate unique cache key
     const cacheKey = this.generateCacheKey(regdNo, semester);
-    
-    // Check cache first
     const cachedResults = this.getCachedResults(cacheKey);
     if (cachedResults) {
       console.log('Returning cached results');
       return cachedResults;
     }
 
-    // Original scraping logic from previous implementation
-    const browser = await puppeteer.launch({ 
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
-    });
-    const page = await browser.newPage();
-
+    let browser;
     try {
+      // Updated browser launch configuration
+      browser = await puppeteer.launch({
+        headless: 'new',
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-gpu',
+          '--no-first-run',
+          '--no-zygote',
+          '--single-process'
+        ],
+        executablePath: process.env.NODE_ENV === 'production' 
+          ? '/usr/bin/google-chrome'  // Path to Chrome in Render
+          : puppeteer.executablePath() // Local Chrome path
+      });
+    const page = await browser.newPage();
       await page.setDefaultTimeout(60000);
 
       const loginUrl = "https://www.srkrexams.in/Login.aspx";
